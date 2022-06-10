@@ -1,2 +1,5 @@
 # pytest
 pytest==7.1.2
+
+# twine
+twine==4.0.1
