@@ -148,7 +148,7 @@ Now your cache will always be in sync and it'll be configured in a cleaner way! 
     ```
     
     ```python
-    @bloats.Product.cache(args=lambda request, id: dict(product_id=id), deflate_on=Product.post_save)
+    @bloats.Product.cache(args=lambda request, id: dict(product_id=id), deflate_on=models.Product.post_save)
     def get_product(request, id):
         """
         Serialize a Product
