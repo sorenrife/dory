@@ -1,3 +1,6 @@
 # Jupyter Lab
 .ipynb_checkpoints/
 .idea/
+
+# PyPi
+dist/
