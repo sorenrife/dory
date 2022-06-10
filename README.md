@@ -3,8 +3,7 @@
 Dory
 ====
 
-Dory is a **Python3.7+** out-of-the box smart cache library.   
-It simplifies multiple cache features and brings [Bloats](#Bloats) to the table, a tool designed to make smarter your application cache.
+Dory is a **Python3.7+** out-of-the box smart cache library. It simplifies multiple cache features and brings [Bloats](#Bloats) to the table, a tool designed to make smarter your application cache.
 
 &nbsp; | Badges
 --- | ---
@@ -36,7 +35,7 @@ pip install dory-cache
 
 ### Cache utils
 
-Dory implements several cache utilities with a simple interface. For example, a decorator to cache views comfortably:
+**Dory** simplifies several cache utilities with an out-of-the-box interface. For example, a decorator to cache views comfortably:
 
 ```python
 @blueprint.get('/foo')
@@ -58,6 +57,10 @@ More about it on the [docs](https://sorenrife.gitbook.io/dory/) 🔥
 <p align="center"><i>Porcupinefish have the ability to inflate their bodies by swallowing water or air, thereby becoming rounder.</i></p>
 <br>
 
+**Bloats** responds to the necessity to have a solid and clean way to define cache usage and to permit an smart cache approach to your system.
+The main idea behind it is that a **Bloat** has the ability to **inflate** -as a Porcupinefish does- meaning that has the ability to cache a **key/value** given a certain configuration. Also, has the ability to **deflate** meaning exactly the contrary, that deletes the given **key/value** from the cache. Having a **Bloat** decoupled gives the application the ability to interact with the cache in a comfortable way around all the project (similar as a *Serializer* would do).
+
+
 For example, let's pretend that we have a model called `Product` wich can be either renderizer or edited.  
 
 ```python
@@ -75,7 +78,7 @@ So, to improve the `Product` performance we cache the `Product` serialization vi
 ```python
 @api.get('/product/<id>')
 @dory.cache(key=lambda request, id: "product:%s" % id, timeout=timedelta(hours=1))
-def get_product(request, id):
+def get_product(request, id) -> Response:
     """
     Serialize a Product
     """
@@ -84,7 +87,7 @@ def get_product(request, id):
 
 Now everything works faster and as expected, but we did not contemplate that since the `Product` can be edited *(POST /product)*, we could have cached an outdated version of the `Product`, so we need a way to force the cache to refresh itself. This is where **Bloats** come in handy!  
 
-Instead of caching the view with a custom key, decouple the cache logic on a `Bloat`:
+Instead of caching the view with a custom key, decouple the cache configuration on a `Bloat`:
 
 ```python
 class Product(dory.Bloat):
@@ -104,14 +107,14 @@ class Product(dory.Bloat):
 ```python
 @api.get('/product/<id>')
 @bloats.Product.cache(args=lambda request, id: dict(product_id=id))
-def get_product(request, id):
+def get_product(request, id) -> Response:
     """
     Serialize a Product
     """
     ...
 ```
 
-And now, when a `Product` is edited, you can force the view to refresh the cache using the defined `Bloat` as a middle-man.
+And now, when a `Product` is edited, you can force the view to refresh the cache using the `Bloat` as a middle-man.
 
 ```python
 @api.post('/product/<id>')
@@ -129,13 +132,33 @@ Now your cache will always be in sync and it'll be configured in a cleaner way! 
 
 ## Roadmap
 
-- [ ] Cache utils
-- [ ] Bloats 🐡
-- [ ] Django signals
-- [ ] Ratelimit
-- [ ] Bloats v2
+- [ ] **Cache utils** (See [Cache utils](#Cache-utils))
+    - [ ] **Cache decorator**   
+    - [ ] **Ratelimit**
+- [ ] **Bloats 🐡** (See [Bloats](#Bloats))
+- [ ] **Django signals**
+    ```python
+    class Product(models.Model, dory.django.BloatModel):
+        """
+        Store information about a Product
+        """
+        id: int
+        name: str = m.CharField(max_length=24)
+        description: str = m.TextField()
+    ```
+    
+    ```python
+    @bloats.Product.cache(args=lambda request, id: dict(product_id=id), deflate_on=Product.post_save)
+    def get_product(request, id):
+        """
+        Serialize a Product
+        """
+        ...
+    ```
+- [ ] **Bloats v2**
+    - The v2 of the **Bloats** will have the method `.reflate()`, capable not only to **deflate** the current **Bloat** but to **inflate** it again. The design is still a WIP.
 
 ## Contributing
 
 Suggestions and contributions are extremely welcome! ❤️  
-Just open an issue or a PR, and we'll respond as soon as we can.
+Just open an issue or a PR, and I'll respond as soon as I can.
