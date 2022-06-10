@@ -9,7 +9,7 @@ Dory is a **Python3.7+** out-of-the box smart cache library. It simplifies multi
 --- | ---
 Build | [![tests](https://github.com/sorenrife/dory/actions/workflows/test.yaml/badge.svg?branch=master&event=push)](https://github.com/sorenrife/dory/actions/workflows/test.yaml) [![build/deploy](https://github.com/sorenrife/dory/actions/workflows/deploy-prod.yaml/badge.svg)](https://github.com/sorenrife/dory/actions/workflows/deploy-prod.yaml) [![codecov](https://codecov.io/gh/sorenrife/dory/branch/master/graph/badge.svg?token=72DJGGO049)](https://codecov.io/gh/sorenrife/dory)
 Docs | [![documentation](https://img.shields.io/badge/dory-docs-FF274D)](https://sorenrife.gitbook.io/dory/)
-Package | [![PyPi](https://img.shields.io/pypi/v/dory-cache.svg)](https://pypi.python.org/pypi/dory-cache/) [![PyPi versions](https://img.shields.io/pypi/pyversions/dory-cache.svg)](https://pypi.python.org/pypi/dory-cache/) [![code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+Package | [![PyPi](https://img.shields.io/pypi/v/dory-cache.svg?color=blue)](https://pypi.python.org/pypi/dory-cache/) [![PyPi versions](https://img.shields.io/pypi/pyversions/dory-cache.svg?color=blue)](https://pypi.python.org/pypi/dory-cache/) [![code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 Support | [![buy-me-a-coffee](https://img.shields.io/badge/-buy_me_a%C2%A0coffee-gray?logo=buy-me-a-coffee)](https://www.buymeacoffee.com/sorenrife)
 
 ## Table of content
@@ -50,7 +50,7 @@ def foo(request):
 
 More about it on the [docs](https://sorenrife.gitbook.io/dory/) 🔥
 
-### Bloats 🐡
+### Bloats
 <p align="center">
     <img src="https://user-images.githubusercontent.com/55748056/173080628-aafb7b87-67c4-4181-9619-01ee7a4126bc.png" width="300">
 </p>
