@@ -3,7 +3,7 @@
 Dory
 ====
 
-Dory is a **Python3.7+** out-of-the box smart cache library. It simplifies multiple cache features and brings [Bloats](#Bloats) to the table, a tool designed to make smarter your application cache.
+Dory is a **Python3.8+** out-of-the box smart cache library. It simplifies multiple cache features and brings [Bloats](#Bloats) to the table, a tool designed to make smarter your application cache.
 
 &nbsp; | Badges
 --- | ---
