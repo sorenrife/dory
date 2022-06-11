@@ -37,4 +37,7 @@ jobs:
           VERSION: ${{ steps.release_version.outputs.VERSION }}
 
       - name: Deploy to PyPi
-        run: twine upload dist/* --verbose
+        run: twine upload dist/* --verbose --config-file .pypirc
+        env:
+          PYPI_USERNAME: ${{secrets.PYPI_USERNAME}}
+          PYPI_PASSWORD: ${{secrets.PYPI_PASSWORD}}
