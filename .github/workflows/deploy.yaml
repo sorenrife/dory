@@ -1,0 +1,40 @@
+name: "Build & deploy"
+on:
+  release:
+    types: [released]
+
+concurrency: build-deploy-prod
+
+jobs:
+  build:
+    name: Build & deploy to PyPi
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          lfs: true
+
+      - name: Get release version
+        id: release_version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+
+      - name: Install dependencies
+        run: ./scripts/deps.sh
+
+      - name: Build code as a Python package
+        run: python3 setup.py sdist
+        env:
+          VERSION: ${{ steps.release_version.outputs.VERSION }}
+
+      - name: Deploy to PyPi
+        run: twine upload dist/* --verbose

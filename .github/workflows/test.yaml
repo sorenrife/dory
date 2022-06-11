@@ -1,0 +1,45 @@
+name: "Unit tests"
+on:
+  push:
+    branches: [master]
+    paths:
+      - "**"
+      - "!.github/workflows/**"
+      - ".github/workflows/test.yaml"
+      - "!**.md"
+  pull_request:
+    paths:
+      - "**"
+      - "!.github/workflows/**"
+      - ".github/workflows/test.yaml"
+      - "!**.md"
+
+jobs:
+  test:
+    name: Unit tests
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: ./scripts/deps.sh
+
+      - name: Run tests
+        run: ./scripts/test.sh
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          fail_ci_if_error: true
+          token: ${{secrets.CODECOV_API_TOKEN}}

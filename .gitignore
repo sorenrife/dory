@@ -5,3 +5,7 @@
 # PyPi
 dist/
 */dory_cache.egg-info/
+
+# Pytest
+.coverage
+coverage.xml

@@ -2,13 +2,14 @@
 set -e
 set -o pipefail
 
-# setup pyenv
-echo "installing pyenv..."
-brew install pyenv
+# install pylint
+echo "installing pylint..."
+brew install pylint
 
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
-echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+# install pre-commit
+echo "installing pre-commit..."
+brew install pre-commit
+pre-commit install
 
 # install Python requirements
 echo "installing python requirements..."

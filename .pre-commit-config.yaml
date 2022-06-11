@@ -1,0 +1,19 @@
+fail_fast: true
+repos:
+  - repo: local
+    hooks:
+      - id: lint-test
+        name: lint and test
+        entry: ./scripts/test.sh
+        language: script
+        types_or:
+          - python
+          - json
+          - html
+          - xml
+
+      - id: format
+        name: format
+        entry: ./scripts/format.sh
+        language: script
+        types: [python]
