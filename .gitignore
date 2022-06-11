@@ -1,0 +1,7 @@
+# Jupyter Lab
+.ipynb_checkpoints/
+.idea/
+
+# PyPi
+dist/
+*/dory_cache.egg-info/
