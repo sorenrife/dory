@@ -57,8 +57,9 @@ More about it on the [docs](https://sorenrife.gitbook.io/dory/) 🔥
 <p align="center"><i>Porcupinefish have the ability to inflate their bodies by swallowing water or air, thereby becoming rounder.</i></p>
 <br>
 
-**Bloats** responds to the necessity to have a solid and clean way to define cache usage and to permit an smart cache approach to your system.
-The main idea behind it is that a **Bloat** has the ability to **inflate** -as a Porcupinefish does- meaning that has the ability to cache a **key/value** given a certain configuration. Also, has the ability to **deflate** meaning exactly the contrary, that deletes the given **key/value** from the cache. Having a **Bloat** decoupled gives the application the ability to interact with the cache in a comfortable way around all the project (similar as a *Serializer* would do).
+`Bloats` responds to the necessity to have a solid and clean way to define cache usage and to permit an smart cache approach to your system.
+The main idea behind it is that a `Bloat` has the ability to `inflate` -as a Porcupinefish does- meaning that has the ability to cache a `key/value` given a certain configuration.
+Also, has the ability to `deflate` meaning exactly the contrary, that deletes the given `key/value` from the cache. Having a `Bloat decoupled gives the application the ability to interact with the cache in a comfortable way around all the project.
 
 
 For example, let's pretend that we have a model called `Product` wich can be either renderizer or edited.  
