@@ -157,7 +157,7 @@ Now your cache will always be in sync and it'll be configured in a cleaner way! 
         ...
     ```
 - [ ] **Bloats v2**
-    - The v2 of the **Bloats** will have the method `.reflate()`, capable not only to **deflate** the current **Bloat** but to **inflate** it again. The design is still a WIP.
+    - The v2 of the **Bloats** will implement the method `.reflate()`, capable not only to **deflate** the current **Bloat** but to **inflate** it again. The design is still a WIP.
 
 ## Contributing
 
