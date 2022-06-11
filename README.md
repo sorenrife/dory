@@ -38,7 +38,7 @@ pip install dory-cache
 **Dory** simplifies several cache utilities with an out-of-the-box interface. For example, a decorator to cache views comfortably:
 
 ```python
-@blueprint.get('/foo')
+@api.get('/foo')
 @dory.cache(key='foo', timeout=timedelta(hours=1))
 def foo(request):
     """
@@ -161,5 +161,5 @@ Now your cache will always be in sync and it'll be configured in a cleaner way! 
 
 ## Contributing
 
-Suggestions and contributions are extremely welcome! ❤️  
+Suggestions and contributions are extremely welcome! ❤️
 Just open an issue or a PR, and I'll respond as soon as I can.
