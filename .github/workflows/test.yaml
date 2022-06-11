@@ -33,7 +33,7 @@ jobs:
           cache: "pip"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: ./scripts/deps.sh
 
       - name: Run tests
         run: ./scripts/test.sh
