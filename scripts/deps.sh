@@ -2,6 +2,10 @@
 set -e
 set -o pipefail
 
+# install pylint
+echo "installing pylint..."
+brew install pylint
+
 # install pre-commit
 echo "installing pre-commit..."
 brew install pre-commit
