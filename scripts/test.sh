@@ -8,4 +8,4 @@ pylint -j0 -E ../**/*.py
 
 # run tests
 echo "running tests..."
-pytest || true
+pytest
