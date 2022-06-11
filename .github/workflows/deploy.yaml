@@ -3,7 +3,7 @@ on:
   release:
     types: [released]
 
-concurrency: build-deploy-prod
+concurrency: build-deploy
 
 jobs:
   build:
