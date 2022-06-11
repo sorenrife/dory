@@ -38,3 +38,6 @@ jobs:
 
       - name: Deploy to PyPi
         run: twine upload dist/* --verbose --config-file .pypirc
+        env:
+          PYPI_USERNAME: ${{secrets.PYPI_USERNAME}}
+          PYPI_PASSWORD: ${{secrets.PYPI_PASSWORD}}
