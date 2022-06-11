@@ -59,7 +59,7 @@ More about it on the [docs](https://sorenrife.gitbook.io/dory/) 🔥
 
 `Bloats` responds to the necessity to have a solid and clean way to define cache usage and to permit an smart cache approach to your system.
 The main idea behind it is that a `Bloat` has the ability to `inflate` -as a Porcupinefish does- meaning that has the ability to cache a `key/value` given a certain configuration.
-Also, has the ability to `deflate` meaning exactly the contrary, that deletes the given `key/value` from the cache. Having a `Bloat decoupled gives the application the ability to interact with the cache in a comfortable way around all the project.
+Also, has the ability to `deflate` meaning exactly the contrary, that deletes the given `key/value` from the cache. Having a `Bloat` decoupled gives the application the ability to interact with the cache in a comfortable way around all the project.
 
 
 For example, let's pretend that we have a model called `Product` wich can be either renderizer or edited.  
@@ -158,9 +158,9 @@ Now your cache will always be in sync and it'll be configured in a cleaner way! 
         ...
     ```
 - [ ] **Bloats v2**
-    - The v2 of the **Bloats** will implement the method `.reflate()`, capable not only to **deflate** the current **Bloat** but to **inflate** it again. The design is still a WIP.
+    - The v2 of the `Bloats` will implement the method `.reflate()`, capable not only to `deflate` the current `Bloat` but to `inflate` it again. The design is still a `WIP`.
 
 ## Contributing
 
-Suggestions and contributions are extremely welcome! ❤️
+Suggestions and contributions are extremely welcome! ❤️  
 Just open an issue or a PR, and I'll respond as soon as I can.
