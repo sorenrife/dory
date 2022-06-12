@@ -58,7 +58,7 @@ More about it on the [docs](https://sorenrife.gitbook.io/dory/) 🔥
 <br>
 
 `Bloats` responds to the necessity to have a solid and clean way to define cache usage and to permit an smart cache approach to your system.
-The main idea behind it is that a `Bloat` has the ability to `inflate` -as a *Porcupinefish* does- meaning that has the ability to cache a `key/value` given a certain configuration.
+The main idea behind it is that a `Bloat` has the ability to `inflate` -as a *Porcupinefish* does- meaning that has the ability to cache a `key/value` given a certain configuration and return the stored value -or return it directly if it was already cached-.
 Also, has the ability to `deflate` meaning exactly the contrary, that deletes the given `key/value` from the cache. Having a `Bloat` decoupled gives the application the ability to interact with the cache in a comfortable way around all the project.
 
 
@@ -107,7 +107,7 @@ class Product(dory.Bloat):
 
 ```python
 @api.get('/product/<id>')
-@bloats.Product.cache(args=lambda request, id: dict(product_id=id))
+@bloats.Product.inflate(args=lambda request, id: dict(product_id=id))
 def get_product(request, id) -> Response:
     """
     Serialize a Product
