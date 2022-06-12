@@ -3,7 +3,7 @@
 Dory
 ====
 
-Dory is a **Python3.8+** out-of-the box smart cache library. It simplifies multiple cache features and brings [Bloats](#Bloats) to the table, a tool designed to make smarter your application cache.
+Dory is a **Python3.8+** out-of-the box smart cache solution. It simplifies multiple cache features and brings [Bloats](#Bloats) to the table, a tool designed to make smarter your application cache.
 
 &nbsp; | Badges
 --- | ---
@@ -58,7 +58,7 @@ More about it on the [docs](https://sorenrife.gitbook.io/dory/) 🔥
 <br>
 
 `Bloats` responds to the necessity to have a solid and clean way to define cache usage and to permit an smart cache approach to your system.
-The main idea behind it is that a `Bloat` has the ability to `inflate` -as a Porcupinefish does- meaning that has the ability to cache a `key/value` given a certain configuration.
+The main idea behind it is that a `Bloat` has the ability to `inflate` -as a *Porcupinefish* does- meaning that has the ability to cache a `key/value` given a certain configuration.
 Also, has the ability to `deflate` meaning exactly the contrary, that deletes the given `key/value` from the cache. Having a `Bloat` decoupled gives the application the ability to interact with the cache in a comfortable way around all the project.
 
 
@@ -74,7 +74,7 @@ class Product(Model):
     description: str = Text()
 ```
 
-So, to improve the `Product` performance we cache the `Product` serialization view *(GET /product)*.
+So, to improve the `Product` performance we cache the `Product` serialization view **(GET /product/<id>)**.
 
 ```python
 @api.get('/product/<id>')
@@ -86,7 +86,7 @@ def get_product(request, id) -> Response:
     ...
 ```
 
-Now everything works faster and as expected, but we did not contemplate that since the `Product` can be edited *(POST /product)*, we could have cached an outdated version of the `Product`, so we need a way to force the cache to refresh itself. This is where **Bloats** come in handy!  
+Now everything works faster and as expected, but we did not contemplate that since the `Product` can be edited **(PUT /product/<id>)**, we could have cached an outdated version of the `Product`, so we need a way to force the cache to refresh itself. This is where **Bloats** come in handy!
 
 Instead of caching the view with a custom key, decouple the cache configuration on a `Bloat`:
 
@@ -118,7 +118,7 @@ def get_product(request, id) -> Response:
 And now, when a `Product` is edited, you can force the view to refresh the cache using the `Bloat` as a middle-man.
 
 ```python
-@api.post('/product/<id>')
+@api.put('/product/<id>')
 def edit_product(request, id):
     """
     Edit a Product
