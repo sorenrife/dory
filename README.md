@@ -31,6 +31,8 @@ Installation is as simple as:
 pip install dory-cache
 ```
 
+View the current documentation [here](https://sorenrife.gitbook.io/dory/)
+
 ## Features
 
 ### Cache utils
@@ -47,8 +49,6 @@ def foo(request):
     ...
 
 ```
-
-More about it on the [docs](https://sorenrife.gitbook.io/dory/) 🔥
 
 ### Bloats
 <p align="center">
