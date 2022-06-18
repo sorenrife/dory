@@ -31,7 +31,7 @@ Installation is as simple as:
 pip install dory-cache
 ```
 
-View the current documentation [here](https://sorenrife.gitbook.io/dory/)
+View the current documentation [here](https://sorenrife.gitbook.io/dory/).
 
 ## Features
 
@@ -159,6 +159,7 @@ Now your cache will always be in sync and it'll be configured in a cleaner way! 
     ```
 - [ ] **Bloats v2**
     - The v2 of the `Bloats` will implement the method `.reflate()`, capable not only to `deflate` the current `Bloat` but to `inflate` it again. The design is still a `WIP`.
+- [ ] **Support more cache engines**
 
 ## Contributing
 
