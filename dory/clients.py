@@ -8,7 +8,7 @@ from typing import Protocol, Optional, Any, List, Union
 class Client(Protocol):
     """
     Engine definition standard.
-    Other engines should inherit from it.
+    Other clients should inherit from it.
     """
 
     def get(self, key: str, default: Optional[str] = None) -> Any:
