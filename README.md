@@ -16,8 +16,8 @@ Support | [![buy-me-a-coffee](https://img.shields.io/badge/-buy_me_a%C2%A0coffee
 
 - [Installation](#Installation)
 - [Features](#Features)
-    - [Cache utils](#Cache-utils)
     - [Bloats](#Bloats)
+    - [Cache utils](#Cache-utils)
 - [Usage](#Usage)
     - [Examples](#Examples)
 - [Roadmap](#Roadmap)
@@ -35,21 +35,6 @@ View the current documentation [here](https://sorenrife.gitbook.io/dory/).
 
 ## Features
 
-### Cache utils
-
-**Dory** simplifies several cache utilities with an out-of-the-box interface. For example, a decorator to cache views comfortably:
-
-```python
-@api.get('/foo')
-@dory.cache(key='foo', timeout=timedelta(hours=1))
-def foo(request):
-    """
-    Render a Foo
-    """
-    ...
-
-```
-
 ### Bloats
 <p align="center">
     <img src="https://user-images.githubusercontent.com/55748056/173080628-aafb7b87-67c4-4181-9619-01ee7a4126bc.png" width="300">
@@ -62,24 +47,15 @@ The main idea behind it is that a `Bloat` has the ability to `inflate` -as a *Po
 Also, has the ability to `deflate` meaning exactly the contrary, that deletes the given `key/value` from the cache. Having a `Bloat` decoupled gives the application the ability to interact with the cache in a comfortable way around all the project.
 
 
-For example, let's pretend that we have a model called `Product` wich can be either renderizer or edited.  
+For example, let's pretend that we have a model called `Product` wich can be either renderizer or edited. So, to improve the `Product` serialization performance we cache the `Product` serialization view **(GET /product/<id>)**.
 
 ```python
-class Product(Model):
-    """
-    Store information about a Product
-    """
-    id: int = PrimaryKey()
-    name: str = Text()
-    description: str = Text()
-```
+from dory import cache
+from dory.utils import F
 
-So, to improve the `Product` performance we cache the `Product` serialization view **(GET /product/<id>)**.
-
-```python
-@api.get('/product/<id>')
-@dory.cache(key=lambda request, id: "product:%s" % id, timeout=timedelta(hours=1))
-def get_product(request, id) -> Response:
+@api.get('/product/<product_id>')
+@cache.get(key="product:%s" % F('product_id'), timeout=timedelta(hours=1))
+def get_product(request, product_id) -> Response:
     """
     Serialize a Product
     """
@@ -88,10 +64,12 @@ def get_product(request, id) -> Response:
 
 Now everything works faster and as expected, but we did not contemplate that since the `Product` can be edited **(PUT /product/<id>)**, we could have cached an outdated version of the `Product`, so we need a way to force the cache to refresh itself. This is where **Bloats** come in handy!
 
-Instead of caching the view with a custom key, decouple the cache configuration on a `Bloat`:
+Instead of caching the view with a generic cache decorator, decouple the cache configuration on a `Bloat`:
 
 ```python
-class Product(dory.Bloat):
+from dory import bloats
+
+class Product(bloats.Bloat):
     """
     Product's bloat
     """
@@ -106,9 +84,12 @@ class Product(dory.Bloat):
 ```
 
 ```python
-@api.get('/product/<id>')
-@bloats.Product.inflate(args=lambda request, id: dict(product_id=id))
-def get_product(request, id) -> Response:
+from dory import cache
+from dory.utils import F
+
+@api.get('/product/<product_id>')
+@bloats.Product.get(product_id=F('product_id'))
+def get_product(request, product_id) -> Response:
     """
     Serialize a Product
     """
@@ -118,47 +99,70 @@ def get_product(request, id) -> Response:
 And now, when a `Product` is edited, you can force the view to refresh the cache using the `Bloat` as a middle-man.
 
 ```python
-@api.put('/product/<id>')
-def edit_product(request, id):
+@api.put('/product/<product_id>')
+@bloats.Product.touch(product_id=F('product_id'))
+def edit_product(request, product_id):
     """
     Edit a Product
     """
-    # edit the product
-    services.product.edit(request.body)
-    # clean up outdated cache
-    bloats.Product(product_id=id).deflate()
+    ...
 ```
 
 Now your cache will always be in sync and it'll be configured in a cleaner way! 🔥
 
+### Cache utils
+
+**Dory** simplifies several cache utilities with an out-of-the-box interface. For example, a decorator to cache views comfortably:
+
+```python
+@api.get('/foo')
+@dory.cache(key='foo', timeout=timedelta(hours=1))
+def foo(request):
+    """
+    Render a Foo
+    """
+    ...
+```
+
+### Django signals
+
+The [Django signals](https://docs.djangoproject.com/en/stable/ref/signals/) will permit the Bloats to expire themselves when a `post_save` signal from the Bloat's Django designated model signal is sent.
+
+```python
+from dory import bloats
+from .api import models
+
+class Product(bloats.Bloat):
+    """
+    Product's bloat
+    """
+    ...
+
+    class Meta:
+        django_model = models.Product
+```
+
+```python
+from dory.utils import F
+
+@api.get('/product/<product_id>')
+@bloats.Product.get(product_id=F('product_id'))
+def get_product(request, product_id):
+    """
+    Serialize a Product
+    """
+    ...
+```
+
 ## Roadmap
 
+- [ ] **Bloats 🐡** (See [Bloats](#Bloats))
 - [ ] **Cache utils** (See [Cache utils](#Cache-utils))
     - [ ] **Cache decorator**   
     - [ ] **Ratelimit**
-- [ ] **Bloats 🐡** (See [Bloats](#Bloats))
-- [ ] **Django signals**
-    ```python
-    class Product(models.Model, dory.django.BloatModel):
-        """
-        Store information about a Product
-        """
-        id: int
-        name: str = m.CharField(max_length=24)
-        description: str = m.TextField()
-    ```
-    
-    ```python
-    @api.get('/product/<id>')
-    @bloats.Product.cache(args=lambda request, id: dict(product_id=id), deflate_on=models.Product.post_save)
-    def get_product(request, id):
-        """
-        Serialize a Product
-        """
-        ...
-    ```
+- [ ] **Django signals** (See [Django signals](#Django-signals))
 - [ ] **Bloats v2**
-    - The v2 of the `Bloats` will implement the method `.reflate()`, capable not only to `deflate` the current `Bloat` but to `inflate` it again. The design is still a `WIP`.
+    - The v2 of the `Bloats` will implement the method `.set()`, capable not only to deprecate the current `Bloat` version, but to fill it it again. The design is still a `WIP`.
 - [ ] **Support more cache engines**
 
 ## Contributing
