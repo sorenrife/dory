@@ -12,4 +12,4 @@ pypi==2.1
 mypy==0.982
 
 # black
-black==22.8.0
+black==22.10.0
