@@ -3,7 +3,7 @@
 Dory
 ====
 
-Dory is a **Python3.8+** out-of-the box smart cache solution. It simplifies multiple cache features and brings [Bloats](#Bloats) to the table, a tool designed to make smarter your application cache.
+Dory is a **Python3.8+** out-of-the box reactive cache solution. It simplifies multiple cache features and brings [Bloats](#Bloats) to the table, a tool designed to make smarter your application cache.
 
 &nbsp; | Badges
 --- | ---
@@ -42,20 +42,18 @@ View the current documentation [here](https://sorenrife.gitbook.io/dory/).
 <p align="center"><i>Porcupinefish have the ability to inflate their bodies by swallowing water or air, thereby becoming rounder.</i></p>
 <br>
 
-`Bloats` responds to the necessity to have a solid and clean way to define cache usage and to permit an smart cache approach to your system.
-The main idea behind it is that a `Bloat` has the ability to `inflate` -as a *Porcupinefish* does- meaning that has the ability to cache a `key/value` given a certain configuration and return the stored value -or return it directly if it was already cached-.
-Also, has the ability to `deflate` meaning exactly the contrary, that deletes the given `key/value` from the cache. Having a `Bloat` decoupled gives the application the ability to interact with the cache in a comfortable way around all the project.
+`Bloats` responds to the need of having a simpler approach on designing reactive cache on your system. `Bloats` make cache configuration and management easy.
 
 
-For example, let's pretend that we have a model called `Product` wich can be either renderizer or edited. So, to improve the `Product` serialization performance we cache the `Product` serialization view **(GET /product/<id>)**.
+For example, let's pretend that we have a model called `Product` which can be either serialized or edited. So, to improve the `Product` serialization performance we cache the `Product` serialization view **(GET /product/<id>)**.
 
 ```python
-from dory import cache
+from dory.cache import cache
 from dory.utils import F
 
 @api.get('/product/<product_id>')
-@cache.get(key="product:%s" % F('product_id'), timeout=timedelta(hours=1))
-def get_product(request, product_id) -> Response:
+@cache(prefix='product', key=F('product_id'), timeout=timedelta(hours=1))
+def get_product(request, product_id):
     """
     Serialize a Product
     """
@@ -67,29 +65,24 @@ Now everything works faster and as expected, but we did not contemplate that sin
 Instead of caching the view with a generic cache decorator, decouple the cache configuration on a `Bloat`:
 
 ```python
-from dory import bloats
+from dory.bloats import Bloat, Field
 
-class Product(bloats.Bloat):
+class Product(Bloat):
     """
     Product's bloat
     """
-    prefix: str = 'product'
-    key: str
+    product_id: int = Field(...)
     
     timeout: timedelta = timedelta(hours=1)
     enabled: bool = True
-    
-    def __init__(product_id: int):
-        self.key = '%s' % product_id
 ```
 
 ```python
-from dory import cache
-from dory.utils import F
+from dory.bloats.utils import F, cache
 
 @api.get('/product/<product_id>')
-@bloats.Product.get(product_id=F('product_id'))
-def get_product(request, product_id) -> Response:
+@cache(Product(product_id=F('product_id')))
+def get_product(request, product_id):
     """
     Serialize a Product
     """
@@ -99,8 +92,10 @@ def get_product(request, product_id) -> Response:
 And now, when a `Product` is edited, you can force the view to refresh the cache using the `Bloat` as a middle-man.
 
 ```python
+from dory.bloats.utils import F, destroy
+
 @api.put('/product/<product_id>')
-@bloats.Product.touch(product_id=F('product_id'))
+@destroy(Product(product_id=F('product_id')))
 def edit_product(request, product_id):
     """
     Edit a Product
@@ -115,9 +110,12 @@ Now your cache will always be in sync and it'll be configured in a cleaner way! 
 **Dory** simplifies several cache utilities with an out-of-the-box interface. For example, a decorator to cache views comfortably:
 
 ```python
+from dory.cache import cache
+from dory.utils import F
+
 @api.get('/foo')
-@dory.cache(key='foo', timeout=timedelta(hours=1))
-def foo(request):
+@cache(prefix='foo', key=F('foo_id'), timeout=timedelta(hours=1))
+def foo(request, foo_id):
     """
     Render a Foo
     """
@@ -146,7 +144,7 @@ class Product(bloats.Bloat):
 from dory.utils import F
 
 @api.get('/product/<product_id>')
-@bloats.Product.get(product_id=F('product_id'))
+@cache(Product(product_id=F('product_id')))
 def get_product(request, product_id):
     """
     Serialize a Product
