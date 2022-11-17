@@ -41,8 +41,7 @@
 -----------------------
 
 <p align="center">
-Dory is a <b>Python3.8+</b> out-of-the box reactive cache solution     
-It simplifies multiple cache features and brings <a href="#bloats">Bloats</a> to the table, a tool designed to make smarter your application cache.
+The modern <b>Python3.8+</b> out-of-the-box reactive cache solution
 </p>
 
 -----------------------
