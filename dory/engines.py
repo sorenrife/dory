@@ -1,8 +1,10 @@
 """
 Engines definition for Dory
 """
+import redis
+
 from typing import Protocol, Optional
-from .clients import Client
+from . import clients
 
 
 class Engine(Protocol):
@@ -11,7 +13,7 @@ class Engine(Protocol):
     Other engines should inherit from it.
     """
 
-    client: Client
+    client: clients.Client
 
     def __init__(
         self,
@@ -20,4 +22,28 @@ class Engine(Protocol):
         user: str,
         password: Optional[str] = None,
     ) -> None:
-        pass
+        raise NotImplementedError
+
+class Redis(Protocol):
+    """
+    Implementation of Redis engine
+    """
+    client: clients.Redis
+
+    def __init__(
+        self,
+        host: str,
+        port: int,
+        user: str,
+        password: Optional[str] = None,
+    ) -> None:
+        self.client = clients.Redis(
+            rclient=redis.Redis(
+                host=host,
+                port=port,
+                password=password,
+                socket_connect_timeout=0.1,
+                socket_timeout=0.2,
+                retry_on_timeout=False,
+            )
+        )
