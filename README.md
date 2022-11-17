@@ -1,27 +1,51 @@
-<img src="https://user-images.githubusercontent.com/55748056/172958283-fa9b17c3-16a5-49e7-9a12-3d33dc5b6f6d.png" width="300">
-    
-Dory
-====
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/55748056/172958283-fa9b17c3-16a5-49e7-9a12-3d33dc5b6f6d.png" width="300">
+</p>
 
-Dory is a **Python3.8+** out-of-the box reactive cache solution. It simplifies multiple cache features and brings [Bloats](#Bloats) to the table, a tool designed to make smarter your application cache.
+<p align="center">
+  <a href="https://github.com/sorenrife/dory/actions/workflows/deploy.yaml">
+    <img src="https://github.com/sorenrife/dory/actions/workflows/deploy.yaml/badge.svg">
+  </a>
+  <a href="https://codecov.io/gh/sorenrife/dory">
+    <img src="https://codecov.io/gh/sorenrife/dory/branch/master/graph/badge.svg?token=72DJGGO049"/>
+  </a>
+  <a href="https://pypi.python.org/pypi/dory-cache/">
+    <img src="https://img.shields.io/pypi/v/dory-cache.svg?color=blue">
+  </a>
+  <a>
+      <img src="https://img.shields.io/pypi/pyversions/dory-cache.svg?color=blue">
+  </a>
+  <br/>
+  <a href="https://github.com/sorenrife/dory/blob/main/LICENSE.md">
+    <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
+         alt="License: MIT">
+  </a>
+  <a href="https://github.com/sponsors/sorenrife">
+    <img src="https://img.shields.io/badge/GitHub-Become a sponsor-orange.svg"
+         alt="GitHub: Become a sponsor">
+  </a>
+  <a href="https://www.buymeacoffee.com/sorenrife">
+    <img src="https://img.shields.io/badge/-buy_me_a%C2%A0coffee-gray?logo=buy-me-a-coffee"
+         alt="Buy me a coffeee">
+  </a>
+</p>
 
-&nbsp; | Badges
---- | ---
-Build | [![tests](https://github.com/sorenrife/dory/actions/workflows/test.yaml/badge.svg?branch=master&event=push)](https://github.com/sorenrife/dory/actions/workflows/test.yaml) [![build/deploy](https://github.com/sorenrife/dory/actions/workflows/deploy.yaml/badge.svg)](https://github.com/sorenrife/dory/actions/workflows/deploy.yaml) [![codecov](https://codecov.io/gh/sorenrife/dory/branch/master/graph/badge.svg?token=72DJGGO049)](https://codecov.io/gh/sorenrife/dory)
-Docs | [![documentation](https://img.shields.io/badge/dory-docs-FF274D)](https://sorenrife.gitbook.io/dory/)
-Package | [![PyPi](https://img.shields.io/pypi/v/dory-cache.svg?color=blue)](https://pypi.python.org/pypi/dory-cache/) [![PyPi versions](https://img.shields.io/pypi/pyversions/dory-cache.svg?color=blue)](https://pypi.python.org/pypi/dory-cache/) [![code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-Support | [![buy-me-a-coffee](https://img.shields.io/badge/-buy_me_a%C2%A0coffee-gray?logo=buy-me-a-coffee)](https://www.buymeacoffee.com/sorenrife)
+<p align="center">
+  <a href="#installation">Installation</a>
+  • <a href="#features">Features</a>
+  • <a href="README.md#usage">Usage</a>
+  • <a href="#roadmap">Roadmap</a>
+  • <a href="#contributing">Contributing</a>
+</p>
 
-## Table of content
+-----------------------
 
-- [Installation](#Installation)
-- [Features](#Features)
-    - [Bloats](#Bloats)
-    - [Cache utils](#Cache-utils)
-- [Usage](#Usage)
-    - [Examples](#Examples)
-- [Roadmap](#Roadmap)
-- [Contributing](#Contributing)
+<p align="center">
+Dory is a <b>Python3.8+</b> out-of-the box reactive cache solution     
+It simplifies multiple cache features and brings <a href="#bloats">Bloats</a> to the table, a tool designed to make smarter your application cache.
+</p>
+
+-----------------------
 
 ## Installation
 
