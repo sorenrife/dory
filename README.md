@@ -59,12 +59,6 @@ View the current documentation [here](https://sorenrife.gitbook.io/dory/).
 ## Features
 
 ### Bloats
-<p align="center">
-    <img src="https://user-images.githubusercontent.com/55748056/173080628-aafb7b87-67c4-4181-9619-01ee7a4126bc.png" width="300">
-</p>
-<p align="center"><i>Porcupinefish have the ability to inflate their bodies by swallowing water or air, thereby becoming rounder.</i></p>
-<br>
-
 `Bloats` responds to the need of having a simpler approach on designing reactive cache on your system. `Bloats` make cache configuration and management easy.
 
 
@@ -96,8 +90,9 @@ class Product(Bloat):
     """
     product_id: int = Field(...)
     
-    timeout: timedelta = timedelta(hours=1)
-    enabled: bool = True
+    class Options:
+        timeout: timedelta = timedelta(hours=1)
+        enabled: bool = True
 ```
 
 ```python
