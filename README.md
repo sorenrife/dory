@@ -30,8 +30,6 @@
   </a>
 </p>
 
-Dory is a **Python3.8+** out-of-the box reactive cache solution
-
 <p align="center">
   <a href="#installation">Installation</a>
   • <a href="#features">Features</a>
@@ -56,7 +54,7 @@ Installation is as simple as:
 pip install dory-cache
 ```
 
-View the current documentation [here](https://sorenrife.gitbook.io/dory/).
+View the current documentation [here](https://sorenrife.gitbook.io/dory/)
 
 ## Usage
 
