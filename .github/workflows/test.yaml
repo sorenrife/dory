@@ -36,9 +36,7 @@ jobs:
           cache: "pip"
 
       - name: Install brew
-        run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+        run: apt install brew
 
       - name: Install dependencies
         run: ./scripts/deps.sh
