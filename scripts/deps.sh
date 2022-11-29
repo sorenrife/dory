@@ -4,11 +4,11 @@ set -o pipefail
 
 # install pylint
 echo "installing pylint..."
-brew install pylint
+apt install pylint
 
 # install pre-commit
 echo "installing pre-commit..."
-brew install pre-commit
+apt install pre-commit
 pre-commit install
 
 # install Python requirements
