@@ -24,10 +24,12 @@ class Engine(Protocol):
     ) -> None:
         raise NotImplementedError
 
+
 class Redis(Engine):
     """
     Implementation of Redis engine
     """
+
     client: clients.Redis
 
     def __init__(
@@ -47,5 +49,6 @@ class Redis(Engine):
                 retry_on_timeout=False,
             )
         )
+
 
 engine: Engine
