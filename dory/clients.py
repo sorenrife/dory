@@ -21,13 +21,7 @@ class Client(Protocol):
         raise NotImplementedError
 
     def set(
-        self,
-        key: str,
-        value: Any,
-        expiration: Optional[datetime.timedelta],
-        if_exists: bool = False,
-        if_not_exists: bool = False,
-        keepttl: bool = False,
+        self, key: str, value: Any, expiration: Optional[datetime.timedelta] = None
     ) -> bool:
         """
         Set a value in the cache. If timeout is given, use that timeout for the
@@ -81,28 +75,12 @@ class Redis(Client):
         return result if result else default
 
     def set(
-        self,
-        key: str,
-        value: Any,
-        expiration: Optional[datetime.timedelta],
-        if_exists: bool = False,
-        if_not_exists: bool = False,
-        keepttl: bool = False,
+        self, key: str, value: Any, expiration: Optional[datetime.timedelta] = None
     ) -> bool:
         """
         Redis implementation for `set`
         """
-        return (
-            self.rclient.set(
-                name=key,
-                value=value,
-                ex=expiration,
-                nx=if_exists,
-                xx=if_not_exists,
-                keepttl=keepttl,
-            )
-            or False
-        )
+        return self.rclient.set(name=key, value=value, ex=expiration) or False
 
     def touch(self, keys: Union[str, List[str]]) -> int:
         """
@@ -127,3 +105,6 @@ class Redis(Client):
         Redis implementation for `ping`
         """
         return self.rclient.ping()
+
+
+client: Client

@@ -30,6 +30,8 @@
   </a>
 </p>
 
+Dory is a **Python3.8+** out-of-the box reactive cache solution
+
 <p align="center">
   <a href="#installation">Installation</a>
   • <a href="#features">Features</a>
@@ -56,11 +58,29 @@ pip install dory-cache
 
 View the current documentation [here](https://sorenrife.gitbook.io/dory/).
 
+## Usage
+
+Dory's configuration is quite simple. On your project initialization just
+call the setup function as follows
+
+```python
+from dory.setup import setup
+
+setup(
+    host=REDIS_HOST,
+    port=REDIS_PORT,
+    user=REDIS_USER,
+    password=REDIS_PASSWORD
+)
+```
+
+
 ## Features
 
 ### Bloats
-`Bloats` responds to the need of having a simpler approach on designing reactive cache on your system. `Bloats` make cache configuration and management easy.
 
+`Bloats` responds to the need of having a simpler approach on designing reactive cache on your system.
+**They make cache configuration and management easy.**
 
 For example, let's pretend that we have a model called `Product` which can be either serialized or edited. So, to improve the `Product` serialization performance we cache the `Product` serialization view **(GET /product/<id>)**.
 
@@ -69,7 +89,7 @@ from dory.cache import cache
 from dory.utils import F
 
 @api.get('/product/<product_id>')
-@cache(prefix='product', key=F('product_id'), timeout=timedelta(hours=1))
+@cache(key=F('product_id'), timeout=timedelta(hours=1))
 def get_product(request, product_id):
     """
     Serialize a Product
@@ -79,7 +99,7 @@ def get_product(request, product_id):
 
 Now everything works faster and as expected, but we did not contemplate that since the `Product` can be edited **(PUT /product/<id>)**, we could have cached an outdated version of the `Product`, so we need a way to force the cache to refresh itself. This is where **Bloats** come in handy!
 
-Instead of caching the view with a generic cache decorator, decouple the cache configuration on a `Bloat`:
+Instead of caching the view with a generic cache decorator, decouple the cache configuration on a `Bloat`
 
 ```python
 from dory.bloats import Bloat, Field
@@ -132,7 +152,7 @@ from dory.cache import cache
 from dory.utils import F
 
 @api.get('/foo')
-@cache(prefix='foo', key=F('foo_id'), timeout=timedelta(hours=1))
+@cache(key=F('foo_id'), timeout=timedelta(hours=1))
 def foo(request, foo_id):
     """
     Render a Foo

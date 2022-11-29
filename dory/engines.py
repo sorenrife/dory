@@ -24,7 +24,7 @@ class Engine(Protocol):
     ) -> None:
         raise NotImplementedError
 
-class Redis(Protocol):
+class Redis(Engine):
     """
     Implementation of Redis engine
     """
@@ -47,3 +47,5 @@ class Redis(Protocol):
                 retry_on_timeout=False,
             )
         )
+
+engine: Engine
