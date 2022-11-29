@@ -1,11 +1,15 @@
-# Jupyter Lab
+# jupyter lab
 .ipynb_checkpoints/
 .idea/
 
-# PyPi
+# pyPi
 dist/
 */dory_cache.egg-info/
 
-# Pytest
+# python
+*.pyc
+__pycache__/
+
+# pytest
 .coverage
 coverage.xml
