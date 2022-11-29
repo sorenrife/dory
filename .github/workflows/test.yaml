@@ -35,6 +35,11 @@ jobs:
           python-version: "3.8"
           cache: "pip"
 
+      - name: Install brew
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
       - name: Install dependencies
         run: ./scripts/deps.sh
 
