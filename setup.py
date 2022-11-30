@@ -21,7 +21,7 @@ setup(
     python_requires=">=3.8",
     url="https://github.com/sorenrife/dory",
     keywords="dory smart cache",
-    install_requires=["redis==4.3.3"],
+    install_requires=["redis==4.3.5"],
     classifiers=[
         "Development Status :: 4 - Beta",
         "Environment :: Web Environment",
