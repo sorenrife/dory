@@ -9,7 +9,7 @@ twine==4.0.2
 pypi==2.1
 
 # mypy
-mypy==0.982
+mypy==0.991
 
 # black
 black==22.10.0
