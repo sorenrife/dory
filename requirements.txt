@@ -15,5 +15,5 @@ mypy==0.991
 black==22.10.0
 
 # redis
-redis==4.4.0
+redis==4.4.2
 types-redis==4.3.21.6
