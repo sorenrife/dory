@@ -16,4 +16,4 @@ black==22.10.0
 
 # redis
 redis==4.4.0
-types-redis==4.3.21.6
+types-redis==4.5.1.2
